@@ -31,12 +31,15 @@ def scrape_croisieres():
     soup = BeautifulSoup(resp, "html.parser")
     cruises = []
     for card in soup.select("div.home-cruise-card__text-container"):
-        # Title Nights Link
-        title = card.select_one("h3.home-cruise-card__title a").get_text(strip=True)
+        # Extract title and link
+        title_elem = card.select_one("h3.home-cruise-card__title a")
+        title = title_elem.get_text(strip=True) if title_elem else None
+        link = title_elem["href"] if title_elem else None
+
+        # Extract number of nights and cruise name
         m = re.match(r"(\d+)\s*Nuits?\s*-\s*(.+)", title, re.IGNORECASE)
         nights = int(m.group(1)) if m else None
-        nom   = m.group(2).strip() if m else title
-        link = m["href"] if m else None
+        nom = m.group(2).strip() if m else title
 
         # Price
         price_elem = card.select_one(".home-cruise-card__price__figure")
