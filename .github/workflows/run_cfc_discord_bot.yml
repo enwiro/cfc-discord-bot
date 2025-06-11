@@ -2,7 +2,7 @@ name: Run Python Script
 
 on:
   schedule:
-    - cron: '15 16 * * 3'  # Exécute à 17h (heure française) chaque mercredi
+    - cron: '15 16 * * 3,6'  # Exécute à 17h (heure française) chaque mercredi et samedi
   workflow_dispatch:
 
 jobs:
