@@ -36,7 +36,7 @@ def scrape_croisieres():
         m = re.match(r"(\d+)\s*Nuits?\s*-\s*(.+)", title, re.IGNORECASE)
         nights = int(m.group(1)) if m else None
         nom   = m.group(2).strip() if m else title
-        link = m["href"] if link_elem else None
+        link = m["href"] if m else None
 
         # Price
         price_elem = card.select_one(".home-cruise-card__price__figure")
