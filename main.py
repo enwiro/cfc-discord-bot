@@ -31,11 +31,12 @@ def scrape_croisieres():
     soup = BeautifulSoup(resp, "html.parser")
     cruises = []
     for card in soup.select("div.home-cruise-card__text-container"):
-        # Title
+        # Title Nights Link
         title = card.select_one("h3.home-cruise-card__title a").get_text(strip=True)
         m = re.match(r"(\d+)\s*Nuits?\s*-\s*(.+)", title, re.IGNORECASE)
         nights = int(m.group(1)) if m else None
         nom   = m.group(2).strip() if m else title
+        link = m["href"] if link_elem else None
 
         # Price
         price_elem = card.select_one(".home-cruise-card__price__figure")
@@ -47,10 +48,6 @@ def scrape_croisieres():
         if taxe_elem:
             mt = re.search(r"([\d\s]+€)", taxe_elem.get_text())
             taxe = int(mt.group(1).strip().replace(' ','').replace('€','')) if mt else None
-        
-        # Link
-        link_elem = soup.select_one("h3.home-cruise-card__title a")
-        link = link_elem["href"] if link_elem else None
 
         # Date
         start_elem = soup.select_one(".home-cruise-card__dates-depart .home-cruise-card__text")
