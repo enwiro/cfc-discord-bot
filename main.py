@@ -53,8 +53,8 @@ def scrape_croisieres():
             taxe = int(mt.group(1).strip().replace(' ','').replace('€','')) if mt else None
 
         # Date
-        start_elem = soup.select_one(".home-cruise-card__dates-depart .home-cruise-card__text")
-        end_elem = soup.select_one(".home-cruise-card__dates-arrive .home-cruise-card__text")
+        start_elem = card.select_one(".home-cruise-card__dates-depart .home-cruise-card__text")
+        end_elem = card.select_one(".home-cruise-card__dates-arrive .home-cruise-card__text")
 
         startDate = start_elem.get_text().strip() if start_elem else None
         endDate = end_elem.get_text().strip() if end_elem else None
